@@ -1,0 +1,1 @@
+export default function ComponentName() { return <h4>Component content</h4> }
