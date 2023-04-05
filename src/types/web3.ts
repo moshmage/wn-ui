@@ -19,7 +19,7 @@ export interface IWeb3 {
   connect(): Promise<boolean>;
   disconnect(): void;
 
-  addNetwork(chainId: number): Promise<boolean>;
+  addNetwork(chainId: number, skipConnectionReady?: boolean): Promise<boolean>;
   switchNetwork(chainId: number): Promise<boolean>;
 
   subscribe(subscriber: IWeb3Reactors): void;

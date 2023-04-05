@@ -1,5 +1,6 @@
 import {ChangeAccountEvent, ChangeNetworkEvent, ConnectionEvent, IWeb3, IWeb3Reactors} from "@/types/web3";
 import {Web3Connection, Web3ConnectionOptions} from "@taikai/dappkit";
+import {ChainDictionary} from "@/constants/chain-dictionary";
 
 export class Web3 implements IWeb3 {
   #connected: boolean = false;
@@ -53,12 +54,39 @@ export class Web3 implements IWeb3 {
     this.reactors.forEach(reactor => reactor.onDisconnectEvent?.())
   }
 
-  addNetwork(chainId: number): Promise<boolean> {
-    return Promise.resolve(false)
+  async addNetwork(chainId: number, skipConnectionReady = false): Promise<boolean> {
+    try {
+      this.#isConnecting = true;
+      await window.ethereum.request({method: 'wallet_addEthereumChain', params: [ChainDictionary[chainId]],})
+    } catch (e) {
+      console.error(`Failed to addNetwork ${chainId}`, e);
+      return false;
+    } finally {
+      this.#isConnecting = false;
+      if (!skipConnectionReady)
+        await this.#onConnectionReady();
+    }
+    return true;
   }
 
   async switchNetwork(chainId: number): Promise<boolean> {
-    return Promise.resolve(false);
+    try {
+      this.#isConnecting = true;
+      await window.ethereum
+        .request({method: 'wallet_switchEthereumChain', params: [{chainId: ChainDictionary[chainId]?.chainId}],});
+    } catch (e) {
+      if (e?.code === 4902)
+        return this.addNetwork(chainId, true)
+          .then(() => this.switchNetwork(chainId));
+      else console.error(`Failed to switchNetwork ${chainId}`, e);
+
+      return false;
+    } finally {
+      this.#isConnecting = false;
+      await this.#onConnectionReady()
+    }
+
+    return true;
   }
 
   subscribe(subscriber: IWeb3Reactors): void {
@@ -70,8 +98,10 @@ export class Web3 implements IWeb3 {
 
   unsubscribe(subscriber: IWeb3Reactors) {
     const index = this.reactors.indexOf(subscriber);
-    if (index > -1)
-      this.reactors.splice(index, 1);
+    if (index === -1)
+      return;
+
+    this.reactors.splice(index, 1);
   }
 
   async #onConnectionReady() {
