@@ -9,7 +9,7 @@ export class Web3 implements IWeb3 {
   #currentConnectedAddress: string = '';
   #connection: Web3Connection;
 
-  constructor(rpcHost: string, options: Exclude<Web3ConnectionOptions, 'web3Host'>) {
+  constructor(rpcHost: string, options: Exclude<Web3ConnectionOptions, 'web3Host'> = {}) {
     this.#connection = new Web3Connection({web3Host: rpcHost, ...options});
   }
 

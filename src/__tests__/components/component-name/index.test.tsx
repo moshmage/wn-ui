@@ -6,6 +6,6 @@ describe(`ComponentName`, () => {
   it(`Renders component`, () => {
     render(<ComponentName />);
 
-    expect(screen.getByRole('heading', {name: /Component content/i}))
+    expect(screen.getByRole('heading', {name: /Component content/i})).toBeInTheDocument()
   })
 })

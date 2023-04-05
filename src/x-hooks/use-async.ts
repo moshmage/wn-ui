@@ -1,6 +1,6 @@
 import {IAsyncResult} from "@/types/use-async";
 import {useCallback, useEffect, useState} from "react";
-import {AsyncResult} from "@/providers/async-result";
+import {AsyncRunner} from "@/providers/async-runner";
 
 export default function useAsync<T = any>(asyncFunction: () => Promise<T>, immediate = true): IAsyncResult<T> {
   const [loading, setLoading] = useState(false);
@@ -23,10 +23,7 @@ export default function useAsync<T = any>(asyncFunction: () => Promise<T>, immed
 
   }, [asyncFunction])
 
-  useEffect(() => {
-    if (immediate)
-      execute();
-  }, [immediate])
+  useEffect(() => { if (immediate) execute(); }, [immediate])
 
-  return new AsyncResult<T>(execute, error, loading, result);
+  return new AsyncRunner<T>(execute, error, loading, result);
 }
