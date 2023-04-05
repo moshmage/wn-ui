@@ -10,7 +10,7 @@ const createJestConfig = nextJest({
 const config = {
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  preset: "@chainsafe/dappeteer",
+  // preset: "@chainsafe/dappeteer",
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   collectCoverage: true,

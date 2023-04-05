@@ -24,5 +24,4 @@ describe(`Web3`, () => {
     expect(await _web3.connection.eth.getChainId()).not.toBe(_web3.chainId);
     expect(_web3.chainId).toBe(null);
   });
-
 })
