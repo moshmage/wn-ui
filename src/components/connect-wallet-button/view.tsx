@@ -1,11 +1,11 @@
 import If from "@/components/conditionals/if";
+import {ConnectWalletButtonProps} from "@/components/connect-wallet-button/types";
 
-export default function ConnectWalletButton({
+export default function ConnectWalletButtonView({
                                       isConnecting = false,
                                       connected = false,
                                       currentAddress = ``,
-                                      onClick = ((e: MouseEvent) => {}),
-                                    }) {
+                                      onClick = ((e: MouseEvent) => {}),}: ConnectWalletButtonProps) {
 
   return <button onClick={e => onClick(e as MouseEvent)}>
     <If condition={isConnecting}><>Connecting</></If>
