@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom';
 import ConnectWalletButtonView from "@/components/connect-wallet-button/view";
 
-describe(`ConnectWalletButton()`, () => {
+describe(`ConnectWalletButtonView()`, () => {
   let isConnecting: boolean, connected: boolean, address: string;
 
   beforeEach(() => {
