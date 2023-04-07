@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch"
+    "test": "jest --watch --env=./x-jest.environment.js"
   },
   "dependencies": {
     "@metamask/providers": "^10.2.1",

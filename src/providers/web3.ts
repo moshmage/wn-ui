@@ -1,5 +1,6 @@
 import {ChangeAccountEvent, ChangeNetworkEvent, ConnectionEvent, IWeb3, IWeb3Reactors} from "@/types/web3";
-import {Web3Connection, Web3ConnectionOptions} from "@taikai/dappkit";
+import {Web3Connection,} from "@taikai/dappkit/dist/src/base/web3-connection";
+import {Web3ConnectionOptions,} from "@taikai/dappkit/dist/src/interfaces/web3-connection-options";
 import {ChainDictionary} from "@/constants/chain-dictionary";
 
 export class Web3 implements IWeb3 {
