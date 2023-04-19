@@ -51,6 +51,9 @@ const subscriber: IWeb3Reactors = {
   onDisconnectEvent() {},
   onError(e: Error) {},
 }
+
+web3.subscribe(subscriber);
+// web3.unsubscribe(subscriber); // unsubscribe when needed
 ```
 
 ##### Testing
