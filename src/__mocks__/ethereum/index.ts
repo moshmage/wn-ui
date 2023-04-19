@@ -4,7 +4,6 @@ export default {
   isMetaMask: true,
   on() {},
   request: async (request: { method: string, params?: Array<unknown> }) => {
-    console.log(`RequestMethod`, request.method, process.env.TEST_DEFAULT_WALLET)
     switch (request.method) {
       case 'eth_accounts':
       case 'eth_requestAccounts':

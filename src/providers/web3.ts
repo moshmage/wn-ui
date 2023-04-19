@@ -110,8 +110,6 @@ export class Web3 implements IWeb3 {
     this._currentConnectedAddress = (await this.connection.eth.getAccounts())?.[0];
     this._chainId = await this.connection.eth.getChainId();
 
-    console.log(`_onConnectionReady`, this._currentConnectedAddress)
-
     const callReactorEventFn =
       (reactor, fnKey: keyof IWeb3Reactors, e: ChangeNetworkEvent|ChangeAccountEvent|ConnectionEvent) =>
         reactor[fnKey] ? reactor[fnKey](e) : null;
