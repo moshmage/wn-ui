@@ -27,6 +27,9 @@ testing made on them is easy to maintain, do and understand (see [`src/component
 
 `__tests__` and `__mocks__` follow the defaults from jest, some helpers are available and detailed further on.
 
+This project uses `react-superstore`, therefore the global state is a collection of `createStore()` with the relevant
+information needed
+
 ### Web3 and React connection
 `_app.tsx` uses [`<Web3EffectsProvider />`](src/contexts/web3-effects.tsx), which essentially reads the values from our [`web3-provider`](src/providers/web3.ts)
 and updates the [`react-superstore`](https://www.npmjs.com/package/react-superstore) value of the files on [`x-hooks`](src/x-hooks) which are how we read the values 
