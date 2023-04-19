@@ -1,4 +1,4 @@
-import {useWeb3Context} from "@/contexts/use-web3-context";
+import {useWeb3Context} from "@/x-hooks/use-web3-context";
 import {createContext, useEffect, useState} from "react";
 import {ChangeAccountEvent, ConnectionEvent, IWeb3Reactors} from "@/types/web3";
 import {setAddress} from "@/x-hooks/use-address";

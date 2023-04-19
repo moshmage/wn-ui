@@ -1,38 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+#### First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Testing
+Start watching your unit tests
+```bash
+npm run test-dev
+```
 
-You can start editing the page by modifying `pages/index.test.tsx`. The page auto-updates as you edit the file.
+## Developing
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Structure
+`src` holds source files, following `NextJS`; And all defaults from `NextJS` apply to this project.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`components` folder holds components, these are organized into folders and need to be as atomic as possible so the unit
+testing made on them is easy to maintain, do and understand (see [`src/components/connect-wallet-button`](src/components/connect-wallet-button))
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+`__tests__` and `__mocks__` follow the defaults from jest, some helpers are available and detailed further on.
 
-## Learn More
+### Web3 and React connection
+`_app.tsx` uses [`<Web3EffectsProvider />`](src/contexts/web3-effects.tsx), which essentially reads the values from our [`web3-provider`](src/providers/web3.ts)
+and updates the [`react-superstore`](https://www.npmjs.com/package/react-superstore) value of the files on [`x-hooks`](src/x-hooks) which are how we read the values 
+(`useAddress`, `useConnected`, `useChainId`)
 
-To learn more about Next.js, take a look at the following resources:
+#### More reactivity
+You can add more effects, if needed, calling [`web3-provider:subscribe`](src/providers/web3.ts#L93) as so:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+import {useWeb3Context} from "@/x-hooks/use-web3-context";
+import {IWeb3Reactors} from "@/types/web3";
+import {ConnectionEvent} from "@/types/web3";
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+const web3 = useWeb3Context();
 
-## Deploy on Vercel
+const subscriber: IWeb3Reactors = {
+  onConnectionEvent(event: ConnectionEvent) {
+    // do stuff
+  },
+  onChangeNetworkEvent(event: ChangeNetworkEvent) {},
+  onChangeAccountEvent(event: ChangeAccountEvent) {},
+  onDisconnectEvent() {},
+  onError(e: Error) {},
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+##### Testing
+If you need to unit-test something related to web3, you can use:
+```tsx
+import ethereum from "@/__mocks__/ethereum";
+import {Web3EffectsProvider} from "@/contexts/web3-effects";
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+// ...
+
+beforeAll(() => {
+  window.ethereum = ethereum as any;
+})
+
+it(`Something`, () => {
+  render(<Web3EffectsProvider><ConnectWalletButton /></Web3EffectsProvider>);
+})
+```

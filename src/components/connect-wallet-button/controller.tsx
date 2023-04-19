@@ -1,5 +1,5 @@
 import ConnectWalletButtonView from "@/components/connect-wallet-button/view";
-import {useWeb3Context} from "@/contexts/use-web3-context";
+import {useWeb3Context} from "@/x-hooks/use-web3-context";
 import {Web3} from "@/providers/web3";
 import {useConnected} from "@/x-hooks/useConnected";
 import {useAddress} from "@/x-hooks/use-address";
