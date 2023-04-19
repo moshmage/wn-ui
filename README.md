@@ -14,6 +14,11 @@ npm run test-dev
 
 ## Developing
 
+### Environment
+Default values are found on [`.env.example`](.env.example), and loading is done either by Jest or NextJS;
+
+Variables starting with `TEST_` should be used on `.env.test`.
+
 ### Structure
 `src` holds source files, following `NextJS`; And all defaults from `NextJS` apply to this project.
 
