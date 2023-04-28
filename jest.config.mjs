@@ -16,10 +16,15 @@ const config = {
   collectCoverage: true,
   coverageProvider: 'v8',
   testMatch: [ "**/?(*.)+(spec|test).[jt]s?(x)" ],
-  transformIgnorePatterns: [
-    'node_modules/multihashes'
-  ]
+  // transformIgnorePatterns: [
+  //   '/node_modules/(?!(multihashes|@taikai\\+dappkit|uint8arrays)@)'
+  // ]
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config);
+export default async () => {
+  const _config = await createJestConfig(config)();
+  _config.transformIgnorePatterns.splice(0, 1);
+  console.log(_config)
+  return _config;
+}

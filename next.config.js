@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['multihashes'],
+  // transpilePackages: ['multihashes', '@taikai/dappkit', 'uint8arrays'],
   compiler: {
     styledComponents: true,
     reactRemoveProperties: true,
