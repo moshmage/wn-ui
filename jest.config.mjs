@@ -15,8 +15,11 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   collectCoverage: true,
   coverageProvider: 'v8',
-  testMatch: [ "**/?(*.)+(spec|test).[jt]s?(x)" ]
+  testMatch: [ "**/?(*.)+(spec|test).[jt]s?(x)" ],
+  transformIgnorePatterns: [
+    'node_modules/multihashes'
+  ]
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config)
+export default createJestConfig(config);
