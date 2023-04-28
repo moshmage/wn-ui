@@ -24,7 +24,7 @@ const config = {
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 export default async () => {
   const _config = await createJestConfig(config)();
-  _config.transformIgnorePatterns.splice(0, 1);
-  console.log(_config)
+  _config.transformIgnorePatterns.splice(0, 1); // splice node_modules from the next config to allow multihashes to be used TODO: fix
+  // console.log(_config)
   return _config;
 }
