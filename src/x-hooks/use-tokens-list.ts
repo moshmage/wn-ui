@@ -28,4 +28,4 @@ export const [useTokensList, setTokensList, getTokensList] = createStore({}, red
 export const addToken = (payload: AddPayload) =>
   setTokensList({type: TokenListStoreActions.add, payload})
 export const removeToken = (contractAddress: string) =>
-  setTokensList({type: TokenListStoreActions.add, payload: {contractAddress}})
+  setTokensList({type: TokenListStoreActions.remove, payload: {contractAddress}})

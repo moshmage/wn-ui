@@ -4,10 +4,12 @@ import {useErc20} from "@/x-hooks/use-erc20";
 import {act, renderHook} from "@testing-library/react";
 
 import ethereum from "@/__mocks__/ethereum";
-import {Web3EffectsProvider} from "@/contexts/web3-effects";
-import {useWeb3Context} from "@/x-hooks/use-web3-context";
+import {setTokensList,} from "@/x-hooks/use-tokens-list";
 
-jest.mock(`../../x-hooks/use-web3-context`, () => ({useWeb3Context: () => ({connected: true})}))
+
+
+let connected = undefined;
+jest.mock(`../../x-hooks/use-web3-context`, () => ({useWeb3Context: () => ({connected})}))
 jest.mock('@taikai/dappkit', () => ({ERC20: ERC20}))
 
 describe(`useErc20()`, () => {
@@ -16,7 +18,14 @@ describe(`useErc20()`, () => {
     window.ethereum = ethereum as any;
   })
 
-  it(`should add 0x1 as a mocked token`, async () => {
+  beforeEach(() => {
+    renderHook(() => setTokensList({type: 1, payload: {contractAddress: '0x1'}}));
+    ERC20.mockClear();
+    start.mockClear();
+  })
+
+  it(`with connected() true`, async () => {
+    connected = true;
     let token, hook;
 
     await act(async () => {
@@ -29,6 +38,19 @@ describe(`useErc20()`, () => {
     expect(token?.name).toBe(`name`);
     expect(token?.symbol).toBe(`symbol`);
     expect(token?.totalSupply).toBe(`10`);
-    expect(start).toHaveBeenCalled()
+    expect(start).toHaveBeenCalled();
+  })
+
+  it(`with connected() false`, async () => {
+    connected = false;
+    let hook, token;
+
+    await act(async () => {
+      hook = renderHook(() => useErc20('0x1'));
+    });
+
+    token = hook.result.current.token;
+    expect(token).not.toBeTruthy();
+    expect(start).not.toHaveBeenCalled();
   })
 })
