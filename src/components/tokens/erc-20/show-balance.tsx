@@ -6,7 +6,6 @@ export function ShowBalance({contractAddress, ofAddress}) {
   const [balance, setBalance] = useState(``);
 
   const updateBalance = async () => {
-    console.log(`info.token`, info?.token, ofAddress);
     if (!ofAddress || !info?.token) {
       setBalance(`0`);
       return;

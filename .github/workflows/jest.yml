@@ -28,12 +28,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: 'Select correct scope environment variables'
-        uses: muchobien/scoped-env@v1
-        with:
-          secrets: ${{ toJSON(secrets) }}
-          scope: TEST
-
       # Finally, run our tests
       - name: Run the tests
         run: npm test
+        env:
+          TEST_DEFAULT_WALLET: ${{ env.TEST_DEFAULT_WALLET }}
+          TEST_WALLET_PRIVATE_KEY: ${{ secrets.TEST_WALLET_PRIVATE_KEY }}
+          NEXT_PUBLIC_DEFAULT_RPC: ${{ env.NEXT_PUBLIC_DEFAULT_RPC }}
+          TEST_SIGNED_MESSAGE: ${{ env.TEST_SIGNED_MESSAGE }}
