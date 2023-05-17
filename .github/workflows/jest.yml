@@ -32,7 +32,7 @@ jobs:
       - name: Run the tests
         run: npm test
         env:
-          TEST_DEFAULT_WALLET: ${{ env.TEST_DEFAULT_WALLET }}
+          TEST_DEFAULT_WALLET: ${{ vars.TEST_DEFAULT_WALLET }}
           TEST_WALLET_PRIVATE_KEY: ${{ secrets.TEST_WALLET_PRIVATE_KEY }}
-          NEXT_PUBLIC_DEFAULT_RPC: ${{ env.NEXT_PUBLIC_DEFAULT_RPC }}
-          TEST_SIGNED_MESSAGE: ${{ env.TEST_SIGNED_MESSAGE }}
+          NEXT_PUBLIC_DEFAULT_RPC: ${{ vars.NEXT_PUBLIC_DEFAULT_RPC }}
+          TEST_SIGNED_MESSAGE: ${{ vars.TEST_SIGNED_MESSAGE }}
