@@ -3,7 +3,7 @@ import {createContext, useEffect, useState} from "react";
 import {ChangeAccountEvent, ConnectionEvent, IWeb3Reactors} from "@/types/web3";
 import {setAddress} from "@/x-hooks/use-address";
 import {setChainId} from "@/x-hooks/use-chain-id";
-import {setConnected} from "@/x-hooks/useConnected";
+import {setConnected} from "@/x-hooks/use-connected";
 
 const _context = {};
 export const Web3EffectsContext = createContext(_context);

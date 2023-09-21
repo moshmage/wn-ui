@@ -4,11 +4,11 @@ import {Web3} from "@/providers/web3";
 import {useEffect, useState,} from "react";
 import {addToken, getTokensList, useTokensList} from "@/x-hooks/use-tokens-list";
 import {TokenListEntry} from "@/types/store-list";
-import {useConnected} from "@/x-hooks/useConnected";
+import {useConnected} from "@/x-hooks/use-connected";
 
-export const useErc20 = (contractAddress?: string) => {
+export const useErc20 = (contractAddress: string) => {
   const web3: Web3 = useWeb3Context();
-  const tokenEntry: TokenListEntry = useTokensList(store => store[contractAddress]);
+  const tokenEntry: TokenListEntry = useTokensList((store: never) => store[contractAddress]);
   const connection = useConnected();
   const [token, setToken] = useState(null);
 
@@ -34,7 +34,7 @@ export const useErc20 = (contractAddress?: string) => {
       setToken(_token)
   }
 
-  const deploy = async (name, symbol, maxAmount, treasury) => {
+  const deploy = async (name: string, symbol: string, maxAmount: number, treasury: string) => {
     const _token = new ERC20(web3.connection);
     await _token.loadAbi();
     await _token.deployJsonAbi(name, symbol, maxAmount, treasury);

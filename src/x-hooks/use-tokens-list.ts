@@ -1,11 +1,11 @@
-import {AddPayload, TokenListAction, TokenListStore, TokenListStoreActions} from "@/types/store-list.d";
+import {type AddPayload, type BasePayload, type TokenListAction, type TokenListStore, TokenListStoreActions} from "@/types/store-list.d";
 import createStore from "react-superstore";
-import {ERC20} from "@taikai/dappkit";
+import {type ERC20} from "@taikai/dappkit";
 
 
 const reducer = (store: TokenListStore, action: TokenListAction): TokenListStore => {
 
-  const assign = (payload) =>
+  const assign = (payload: BasePayload|AddPayload|null) =>
     Object.assign(store, {[action.payload.contractAddress]: payload})
 
   switch (action.type) {

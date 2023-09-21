@@ -18,6 +18,6 @@
       "@/*": ["./src/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "node_modules/@chainsafe/dappeteer/dist/jest/global.d.ts"],
   "exclude": ["node_modules"]
 }

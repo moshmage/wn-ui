@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {act, render, screen, waitFor, waitForElementToBeRemoved} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 
 
 import ConnectWalletButton from "@/components/connect-wallet-button/controller";
@@ -18,6 +18,6 @@ describe(`ConnectWalletButton()`, () => {
     render(<Web3EffectsProvider><ConnectWalletButton /></Web3EffectsProvider>);
 
     await userEvent.click(screen.getByRole(`button`, {name: /connect$/i}));
-    expect(screen.getByRole(`button`, {name: new RegExp(process.env.TEST_DEFAULT_WALLET, 'i')})).toBeInTheDocument();
+    expect(screen.getByRole(`button`, {name: new RegExp(process.env.TEST_DEFAULT_WALLET!, 'i')})).toBeInTheDocument();
   })
 })
